@@ -1,21 +1,31 @@
-import express, { Request, Response } from 'express'
-import * as http from 'http'
+import express, { Express, Request, Response } from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors';
+import config from './config'
+import { IssueRouter } from './routes'
 
-// Initialize Express application
-const app = express()
+const app: Express = express()
+app.use(bodyParser.json())
+app.use(cors());
 
-// Middleware
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-
-// Routes
 app.get('/', (_req: Request, res: Response) => {
-  res.send('Hello World!')
+  res.send('Express + TypeScript Server')
 })
 
-// Start the server
-const server = http.createServer(app)
-const port = process.env.PORT ?? 5000
-server.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`)
+// routes
+app.use('/issues', IssueRouter)
+
+// handle unmatched routes
+app.use('*', (_req, res) => {
+  res.status(404).send('404: Not Found')
+})
+
+// Error handling middleware
+app.use((err: Error, _req: Request, res: Response, _next: express.NextFunction) => {
+  console.error(err.stack)
+  res.status(500).send('Internal Server Error')
+})
+
+app.listen(config.port, () => {
+  console.log(`[server]: Server is running at http://localhost:${config.port}`)
 })
