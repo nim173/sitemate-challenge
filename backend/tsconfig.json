@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "lib",
+    "target": "es2022",
+    "moduleResolution": "Node",
+    "module": "CommonJS",
+    "lib": ["es2022"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "useUnknownInCatchVariables": true
+  },
+  "exclude": ["lib*/**/*", "lib"]
+}

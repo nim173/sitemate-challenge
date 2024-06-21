@@ -1,0 +1,9 @@
+.idea/
+.vscode/
+node_modules/
+lib/
+data/
+coverage/
+yarn-error.log
+index.zip
+.env
